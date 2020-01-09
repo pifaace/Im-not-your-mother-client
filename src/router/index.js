@@ -1,18 +1,19 @@
 import VueRouter from 'vue-router'
-import Login from '@/components/Auth/Login'
-import Register from '@/components/Auth/Register'
-
-const routes = [
-  {
-    path: '/login',
-    component: Login
-  },
-  {
-    path: '/register',
-    component: Register
-  }
-]
+const Login = () => import('@/components/Auth/Login')
+const Register = () => import('@/components/Auth/Register')
 
 export default new VueRouter({
-  routes
+  mode: 'history',
+  routes: [
+    {
+      path: '/login',
+      component: Login,
+      name: 'login'
+    },
+    {
+      path: '/register',
+      component: Register,
+      name: 'register'
+    }
+  ]
 })

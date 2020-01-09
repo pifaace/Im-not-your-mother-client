@@ -1,4 +1,4 @@
-class Errors {
+export default class {
   constructor () {
     this.errors = {}
   }
@@ -8,7 +8,7 @@ class Errors {
    * @param {string} field
    */
   get (field) {
-    if (this.errors[field]) {
+    if (this.has(field)) {
       return this.errors[field][0]
     }
   }
@@ -46,5 +46,3 @@ class Errors {
     delete this.errors[field]
   }
 }
-
-export default Errors

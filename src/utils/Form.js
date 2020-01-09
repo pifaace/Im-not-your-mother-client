@@ -1,6 +1,6 @@
-class Form {
+export default class {
   constructor (data) {
-    for (let field in data) {
+    for (const field in data) {
       this[field] = data[field]
     }
   }
@@ -8,5 +8,3 @@ class Form {
   reset () {
   }
 }
-
-export default Form

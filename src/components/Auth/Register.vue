@@ -10,42 +10,48 @@
             Register
           </h1>
           <h2 class="subtitle is-6 has-text-centered">
-            <router-link to="/login">
+            <router-link :to="{ name: 'login' }">
               use your account
             </router-link>
           </h2>
+
           <form @submit.prevent="onSubmit" @keydown="errors.clear($event.target.name)">
             <div class="field">
               <label class="label">Username</label>
               <div class="control">
-                <input v-model="username" name="username" class="input" type="text">
+                <input v-model="form.username" name="username" class="input" :class="{ 'is-danger': errors.has('username') }" type="text">
                 <span v-if="errors.has('username')" class="help is-danger" v-text="errors.get('username')" />
               </div>
             </div>
+
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
-                <input v-model="email" name="email" class="input" type="email">
+                <input v-model="form.email" name="email" class="input" :class="{ 'is-danger': errors.has('email') }" type="email">
                 <span v-if="errors.has('email')" class="help is-danger" v-text="errors.get('email')" />
               </div>
             </div>
+
             <div class="field">
               <label class="label">Password</label>
               <div class="control">
-                <input v-model="password" name="password" class="input" type="password">
+                <input v-model="form.password" name="password" class="input" :class="{ 'is-danger': errors.has('password') }" type="password">
                 <span v-if="errors.has('password')" class="help is-danger" v-text="errors.get('password')" />
               </div>
             </div>
+
             <div class="field">
               <label class="label">Repeat password</label>
               <div class="control">
-                <input v-model="repeatPassword" name="repeatPassword" class="input" type="password">
+                <input v-model="form.repeatPassword" name="repeatPassword" class="input" type="password">
               </div>
             </div>
+
             <div class="field">
               <div class="control">
-                <button :disabled="errors.any()" class="button is-link">
-                  Submit
+                <button class="button is-link">
+                  <b-icon v-if="isLoading" icon="loading" custom-class="mdi-spin" />
+                  <span>Submit</span>
                 </button>
               </div>
             </div>
@@ -59,28 +65,31 @@
 <script>
 
 import axios from 'axios'
-import Errors from '../../utils/Errors'
+import Errors from '@/utils/Errors'
 
 export default {
   data () {
     return {
-      username: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
+      isLoading: false,
+      form: {
+        username: '',
+        email: '',
+        password: '',
+        repeatPassword: ''
+      },
       errors: new Errors()
     }
   },
 
   methods: {
     onSubmit () {
-      axios.post('https://api.im-not-your-mother.com/api/register', this.$data)
-        .then(this.onSuccess)
-        .catch(error => (this.errors.record(error.response.data.violations)))
-    },
+      this.isLoading = true
 
-    onSuccess () {
-      alert('Success')
+      axios.post('/register', this.form)
+        .catch(({ response }) => {
+          this.isLoading = false
+          this.errors.record(response.data.violations)
+        })
     }
   }
 }
