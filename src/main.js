@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 Vue.config.performance = true
 
-axios.defaults.baseURL = 'https://api.im-not-your-mother.com/api'
+axios.defaults.baseURL = 'https://api.im-not-your-mother.com'
 
 new Vue({
   router,

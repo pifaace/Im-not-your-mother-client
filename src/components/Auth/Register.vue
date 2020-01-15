@@ -40,9 +40,10 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">Repeat password</label>
+              <label class="label">Password confirmation</label>
               <div class="control">
-                <input v-model="form.repeatPassword" name="repeatPassword" class="input" type="password" minlength="8" required>
+                <input v-model="form.passwordConfirmation" name="passwordConfirmation" class="input" type="password" minlength="8" required>
+                <span v-if="form.errors.has('passwordConfirmation')" class="help is-danger" v-text="form.errors.get('passwordConfirmation')" />
               </div>
             </div>
             <div class="field">
@@ -70,7 +71,7 @@ export default {
         username: '',
         email: '',
         password: '',
-        repeatPassword: ''
+        passwordConfirmation: ''
       }),
       submitted: false
     }
@@ -84,7 +85,9 @@ export default {
         })
         .catch(() => {
           this.submitted = false
-          console.log('error')
+
+          this.form.password = ''
+          this.form.passwordConfirmation = ''
         })
     }
   }
