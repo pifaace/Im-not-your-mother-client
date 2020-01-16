@@ -22,6 +22,19 @@ export default class {
   }
 
   /**
+   * Return true if all fields are filled.
+   */
+  isCompleted () {
+    for (const field in this.originalData) {
+      if (this[field] === '') {
+        return false
+      }
+    }
+
+    return true
+  }
+
+  /**
    * Fetch all relevant data for the form.
    */
   data () {
