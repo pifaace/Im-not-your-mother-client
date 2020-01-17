@@ -44,6 +44,7 @@
 
 <script>
 
+import Auth from '@/utils/Auth'
 import Form from '@/utils/Form'
 import axios from 'axios'
 
@@ -60,6 +61,7 @@ export default {
 
   methods: {
     login () {
+      const auth = new Auth()
       if (!this.form.isCompleted()) {
         return false
       }
@@ -69,7 +71,11 @@ export default {
        * I'm not using the error form manager for this one.
        */
       axios.post('/login_check', this.form.data())
-        .then(() => console.log('logged'))
+        .then(({ data }) => {
+          auth.storeToken(data.token)
+          axios.defaults.headers.common.Authorization = 'Bearer ' + auth.getToken()
+          this.$router.push({ name: 'workspaceList' })
+        })
         .catch(({ response }) => {
           this.error = response.data.message
         })

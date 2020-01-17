@@ -10,7 +10,7 @@
             Register
           </h1>
           <h2 class="subtitle is-6 has-text-centered">
-            <router-link :to="{ name: 'register' }">
+            <router-link :to="{ name: 'login' }">
               use your account
             </router-link>
           </h2>
