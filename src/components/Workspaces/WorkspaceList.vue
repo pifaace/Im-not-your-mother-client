@@ -1,5 +1,12 @@
 <template>
-  <p>Workspace list</p>
+  <div>
+    <h2>Workspace list</h2>
+    <ul>
+      <li v-for="workspace in workspaces" :key="workspace.id">
+        {{ workspace.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -15,7 +22,9 @@ export default {
 
   created () {
     axios.get('/workspaces')
-      .then(response => console.log(response))
+      .then(({ data }) => {
+        this.workspaces = data['hydra:member']
+      })
   }
 }
 </script>

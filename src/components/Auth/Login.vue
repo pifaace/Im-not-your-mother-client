@@ -73,7 +73,7 @@ export default {
       axios.post('/login_check', this.form.data())
         .then(({ data }) => {
           auth.storeToken(data.token)
-          axios.defaults.headers.common.Authorization = 'Bearer ' + auth.getToken()
+          axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
           this.$router.push({ name: 'workspaceList' })
         })
         .catch(({ response }) => {
