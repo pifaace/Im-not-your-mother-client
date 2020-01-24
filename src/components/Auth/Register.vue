@@ -15,7 +15,7 @@
             </router-link>
           </h2>
           <b-notification v-if="submitted" :closable="false" type="is-success">
-            You have been registered successfully
+            You have been registered successfully. Check out your email to confirm your account.
           </b-notification>
           <form @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
             <div class="field">

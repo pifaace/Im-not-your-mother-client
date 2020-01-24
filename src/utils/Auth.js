@@ -3,17 +3,17 @@ export default class {
    * Check if the user has a token.
    */
   isAuthenticated () {
-    return localStorage.getItem('token') !== null
+    return window.localStorage.getItem('token') !== null
   }
 
   /**
    * @param {string} token
    */
   storeToken (token) {
-    localStorage.setItem('token', token)
+    window.localStorage.setItem('token', token)
   }
 
   getToken () {
-    return localStorage.getItem('token')
+    return window.localStorage.getItem('token')
   }
 }

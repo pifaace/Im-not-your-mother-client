@@ -15,7 +15,7 @@ const auth = new Auth()
 Vue.config.productionTip = false
 Vue.config.performance = true
 
-axios.defaults.baseURL = 'https://api.im-not-your-mother.com'
+axios.defaults.baseURL = process.env.VUE_APP_IM_NOT_YOUR_MOTHER_API
 axios.defaults.headers.common.Authorization = 'Bearer ' + auth.getToken()
 
 new Vue({
