@@ -3,6 +3,7 @@ import Auth from '@/utils/Auth'
 const ConfirmUser = () => import('@/components/Auth/ConfirmUser')
 const Login = () => import('@/components/Auth/Login')
 const Register = () => import('@/components/Auth/Register')
+const WorkspaceInvitation = () => import('@/components/Workspaces/WorkspaceInvitation')
 const WorkspaceList = () => import('@/components/Workspaces/WorkspaceList')
 
 const router = new VueRouter({
@@ -37,6 +38,12 @@ const router = new VueRouter({
       path: '/workspaces',
       component: WorkspaceList,
       name: 'workspaceList',
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/workspaces/:id/invitation',
+      component: WorkspaceInvitation,
+      name: 'workspaceInvitation',
       meta: { requiresAuth: true }
     }
   ]
