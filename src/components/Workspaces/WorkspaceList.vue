@@ -1,5 +1,6 @@
 <template>
   <div>
+    <flash-message flash-key="success-invitation" type="is-success" />
     <h2>Workspace list</h2>
     <ul>
       <li v-for="workspace in workspaces" :key="workspace.id">
@@ -12,8 +13,13 @@
 <script>
 
 import axios from 'axios'
+import flashMessage from '@/components/Flash'
 
 export default {
+  components: {
+    flashMessage
+  },
+
   data () {
     return {
       workspaces: []
