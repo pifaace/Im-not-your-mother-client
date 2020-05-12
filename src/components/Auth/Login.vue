@@ -44,8 +44,8 @@
 
 <script>
 
-import Auth from '@/utils/Auth'
 import Form from '@/utils/Form'
+import Auth from '@/utils/Auth'
 import axios from 'axios'
 
 export default {
@@ -62,6 +62,7 @@ export default {
   methods: {
     login () {
       const auth = new Auth()
+
       if (!this.form.isCompleted()) {
         return false
       }

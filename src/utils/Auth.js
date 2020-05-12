@@ -16,4 +16,8 @@ export default class {
   getToken () {
     return window.localStorage.getItem('token')
   }
+
+  removeToken () {
+    window.localStorage.removeItem('token')
+  }
 }
