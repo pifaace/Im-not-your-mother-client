@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from 'vuex'
 import axios from 'axios'
 import App from './App.vue'
 import Auth from '@/utils/Auth'
@@ -21,5 +22,6 @@ axios.defaults.headers.common.Authorization = 'Bearer ' + auth.getToken()
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

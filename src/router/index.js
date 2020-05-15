@@ -13,19 +13,19 @@ const router = new VueRouter({
       path: '/login',
       component: Login,
       name: 'login',
-      meta: { requiresAuth: false, hideNavigation: true }
+      meta: { requiresAuth: false }
     },
     {
       path: '/register',
       component: Register,
       name: 'register',
-      meta: { requiresAuth: false, hideNavigation: true }
+      meta: { requiresAuth: false }
     },
     {
       path: '/users/confirm',
       component: ConfirmUser,
       name: 'confirmUser',
-      meta: { requiresAuth: false, hideNavigation: true },
+      meta: { requiresAuth: false },
       beforeEnter: (to, from, next) => {
         if (!Object.prototype.hasOwnProperty.call(to.query, 'token')) {
           return next('/login')
@@ -38,13 +38,13 @@ const router = new VueRouter({
       path: '/workspaces',
       component: WorkspaceList,
       name: 'workspaceList',
-      meta: { requiresAuth: true, hideNavigation: false }
+      meta: { requiresAuth: true }
     },
     {
       path: '/workspaces/:id/invitation',
       component: WorkspaceInvitation,
       name: 'workspaceInvitation',
-      meta: { requiresAuth: true, hideNavigation: true },
+      meta: { requiresAuth: true },
       props: true
     }
   ]
