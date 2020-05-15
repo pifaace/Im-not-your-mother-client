@@ -45,7 +45,6 @@
 <script>
 
 import Form from '@/utils/Form'
-import Auth from '@/utils/Auth'
 import axios from 'axios'
 
 export default {
@@ -61,8 +60,6 @@ export default {
 
   methods: {
     login () {
-      const auth = new Auth()
-
       if (!this.form.isCompleted()) {
         return false
       }
@@ -73,12 +70,12 @@ export default {
        */
       axios.post('/login_check', this.form.data())
         .then(({ data }) => {
-          auth.storeToken(data.token)
-          axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
+          this.$store.dispatch('login', data)
           this.$router.push({ name: 'workspaceList' })
         })
         .catch(({ response }) => {
           this.error = response.data.message
+          this.form.password = ''
         })
     },
 

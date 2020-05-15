@@ -27,6 +27,7 @@ export default {
   },
 
   created () {
+    // window.localStorage.removeItem('token')
     axios.get('/workspaces')
       .then(({ data }) => {
         this.workspaces = data['hydra:member']

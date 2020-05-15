@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router'
-import Auth from '@/utils/Auth'
-const ConfirmUser = () => import('@/components/Auth/ConfirmUser')
-const Login = () => import('@/components/Auth/Login')
-const Register = () => import('@/components/Auth/Register')
-const WorkspaceInvitation = () => import('@/components/Workspaces/WorkspaceInvitation')
-const WorkspaceList = () => import('@/components/Workspaces/WorkspaceList')
+import store from '@/store'
+const ConfirmUser = () => import('@/views/Auth/ConfirmUser')
+const Login = () => import('@/views/Auth/Login')
+const Register = () => import('@/views/Auth/Register')
+const WorkspaceInvitation = () => import('@/views/Workspaces/WorkspaceInvitation')
+const WorkspaceList = () => import('@/views/Workspaces/WorkspaceList')
 
 const router = new VueRouter({
   mode: 'history',
@@ -51,12 +51,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const auth = new Auth()
-  if (!auth.isAuthenticated() && to.meta.requiresAuth) {
+  if (!store.getters.isLoggedIn && to.meta.requiresAuth) {
     return next('/login')
   }
 
-  if (auth.isAuthenticated() && !to.meta.requiresAuth) {
+  if (store.getters.isLoggedIn && !to.meta.requiresAuth) {
     return next('/workspaces')
   }
 
