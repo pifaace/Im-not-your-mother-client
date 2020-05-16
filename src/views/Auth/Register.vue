@@ -61,7 +61,6 @@
 </template>
 
 <script>
-
 import Form from '@/utils/Form'
 
 export default {
@@ -79,7 +78,7 @@ export default {
 
   methods: {
     onSubmit () {
-      this.form.post('/register')
+      this.form.register()
         .then(() => {
           this.submitted = true
         })

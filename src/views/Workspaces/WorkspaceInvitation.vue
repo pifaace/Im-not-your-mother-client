@@ -5,8 +5,7 @@
 </template>
 
 <script>
-
-import axios from 'axios'
+import { apiWorkspaceInvitation } from '@/logic/workspace/Workspace.api'
 
 export default {
   props: {
@@ -16,7 +15,7 @@ export default {
     }
   },
   created () {
-    axios.get(`/workspaces/${this.id}/invitation`)
+    apiWorkspaceInvitation(this.id)
       .then(() => {
         this.$flash.add('success-invitation', 'You successfully joined the workspace')
         this.$router.push({ name: 'workspaceList' })

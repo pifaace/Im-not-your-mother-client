@@ -1,8 +1,8 @@
 <template>
-  <b-navbar v-if="isLoggedIn">
+  <b-navbar>
     <template slot="start">
       <b-navbar-item tag="div">
-        user123
+        {{ user.username }}
       </b-navbar-item>
     </template>
 
@@ -19,12 +19,20 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
-  computed: mapGetters([
-    'isLoggedIn'
-  ]),
+  computed: {
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
+    ...mapState({
+      user: state => state.auth.user
+    })
+  },
+  created () {
+    this.$store.dispatch('fetchUser')
+  },
   methods: {
     logout () {
       this.$store.dispatch('logout')

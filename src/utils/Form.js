@@ -1,5 +1,5 @@
-import axios from 'axios'
 import Errors from '@/utils/Errors'
+import { apiRegister } from '@/logic/auth/Auth.api'
 
 export default class {
   constructor (data) {
@@ -48,26 +48,16 @@ export default class {
   }
 
   /**
-   * Send a POST request to the giver URL.
-   * @param {string} url
+   * Send a register POST request.
    */
-  post (url) {
-    return this.submit('post', url)
-  }
-
-  /**
-   * Submit the form.
-   * @param {string} requestType
-   * @param {string} url
-   */
-  submit (requestType, url) {
+  register () {
     return new Promise((resolve, reject) => {
-      axios[requestType](url, this.data())
+      apiRegister(this.data())
         .then(() => {
           this.onSuccess()
           resolve()
         })
-        .catch(error => {
+        .catch((error) => {
           this.onFail(error)
           reject(error)
         })

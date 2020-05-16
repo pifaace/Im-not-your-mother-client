@@ -14,8 +14,7 @@
 </template>
 
 <script>
-
-import axios from 'axios'
+import { apiConfirmUser } from '@/logic/auth/Auth.api'
 
 export default {
   data () {
@@ -26,7 +25,7 @@ export default {
   },
 
   created () {
-    axios.get('/users/confirm?token=' + this.$route.query.token)
+    apiConfirmUser(this.$route.query.token)
       .then(() => {
         this.isConfirmed = true
       })

@@ -1,9 +1,9 @@
-import axios from 'axios'
 import router from '@/router'
+import { apiMe } from '@/logic/auth/Auth.api'
 
 export default {
   state: {
-    user: null,
+    user: {},
     logged: !!window.localStorage.getItem('token')
   },
   mutations: {
@@ -11,18 +11,28 @@ export default {
       state.logged = true
 
       window.localStorage.setItem('token', data.token)
-      axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
     },
 
     LOGOUT (state) {
       state.logged = false
       window.localStorage.removeItem('token')
-      delete axios.defaults.headers.common.Authorization
+    },
+
+    SET_USER (state, user) {
+      state.user = user
     }
   },
   actions: {
+    fetchUser ({ commit }) {
+      apiMe()
+        .then(({ data }) => {
+          commit('SET_USER', data)
+        })
+    },
+
     login ({ commit }, data) {
       commit('LOGIN', data)
+
       router.push({ name: 'workspaceList' })
     },
 

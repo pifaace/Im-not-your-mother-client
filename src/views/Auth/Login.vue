@@ -43,9 +43,8 @@
 </template>
 
 <script>
-
 import Form from '@/utils/Form'
-import axios from 'axios'
+import { apiLoginCheck } from '@/logic/auth/Auth.api'
 
 export default {
   data () {
@@ -68,7 +67,7 @@ export default {
        * At this moment, Login credential error has a different structure than validation error so
        * I'm not using the error form manager for this one.
        */
-      axios.post('/login_check', this.form.data())
+      apiLoginCheck(this.form.data())
         .then(({ data }) => {
           this.$store.dispatch('login', data)
         })

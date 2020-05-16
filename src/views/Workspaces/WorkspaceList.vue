@@ -11,9 +11,8 @@
 </template>
 
 <script>
-
-import axios from 'axios'
 import flashMessage from '@/components/Flash'
+import { apiWorkspaceList } from '@/logic/workspace/Workspace.api'
 
 export default {
   components: {
@@ -27,7 +26,7 @@ export default {
   },
 
   created () {
-    axios.get('/workspaces')
+    apiWorkspaceList()
       .then(({ data }) => {
         this.workspaces = data['hydra:member']
       })
