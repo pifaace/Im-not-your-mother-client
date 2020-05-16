@@ -71,7 +71,6 @@ export default {
       axios.post('/login_check', this.form.data())
         .then(({ data }) => {
           this.$store.dispatch('login', data)
-          this.$router.push({ name: 'workspaceList' })
         })
         .catch(({ response }) => {
           this.error = response.data.message

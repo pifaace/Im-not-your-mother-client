@@ -3,10 +3,10 @@ import store from '@/store'
 import axios from 'axios'
 import App from './App.vue'
 import Buefy from 'buefy'
-import 'buefy/dist/buefy.css'
 import router from './router'
 import VueRouter from 'vue-router'
 import Flash from './utils/Flash'
+import '@/assets/app.scss'
 
 Vue.use(Buefy)
 Vue.use(VueRouter)
