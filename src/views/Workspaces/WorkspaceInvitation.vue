@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { apiWorkspaceInvitation } from '@/logic/workspace/Workspace.api'
+import { apiWorkspaceInvitation } from '@/logic/workspaces/Workspace.api'
 
 export default {
   props: {

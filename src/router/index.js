@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router'
 import store from '@/store'
-const ConfirmUser = () => import('@/views/Auth/ConfirmUser')
-const Login = () => import('@/views/Auth/Login')
-const Register = () => import('@/views/Auth/Register')
-const WorkspaceInvitation = () => import('@/views/Workspaces/WorkspaceInvitation')
-const WorkspaceList = () => import('@/views/Workspaces/WorkspaceList')
+const ConfirmUser = () => import('@/views/auth/ConfirmUser')
+const Login = () => import('@/views/auth/Login')
+const Register = () => import('@/views/auth/Register')
+const WorkspaceInvitation = () => import('@/views/workspaces/WorkspaceInvitation')
+const WorkspaceList = () => import('@/views/workspaces/WorkspaceList')
 
 const router = new VueRouter({
   mode: 'history',

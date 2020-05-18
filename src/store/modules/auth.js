@@ -15,6 +15,7 @@ export default {
 
     LOGOUT (state) {
       state.logged = false
+      state.user = {}
       window.localStorage.removeItem('token')
     },
 
@@ -30,7 +31,7 @@ export default {
         })
     },
 
-    login ({ commit }, data) {
+    login ({ commit, dispatch }, data) {
       commit('LOGIN', data)
 
       router.push({ name: 'workspaceList' })

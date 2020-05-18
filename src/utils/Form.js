@@ -1,5 +1,6 @@
 import Errors from '@/utils/Errors'
 import { apiRegister } from '@/logic/auth/Auth.api'
+import store from '@/store'
 
 export default class {
   constructor (data) {
@@ -53,6 +54,23 @@ export default class {
   register () {
     return new Promise((resolve, reject) => {
       apiRegister(this.data())
+        .then(() => {
+          this.onSuccess()
+          resolve()
+        })
+        .catch((error) => {
+          this.onFail(error)
+          reject(error)
+        })
+    })
+  }
+
+  /**
+   * Send a worskspace create POST request.
+   */
+  createWorkspace () {
+    return new Promise((resolve, reject) => {
+      store.dispatch('createWorkspace', this.data())
         .then(() => {
           this.onSuccess()
           resolve()

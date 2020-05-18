@@ -7,29 +7,51 @@
         {{ workspace.name }}
       </li>
     </ul>
+    <b-button @click="isComponentModalActive = true">
+      New workspace
+    </b-button>
+    <b-modal
+      :active.sync="isComponentModalActive"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <create-workspace-form />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import flashMessage from '@/components/Flash'
-import { apiWorkspaceList } from '@/logic/workspace/Workspace.api'
+import CreateWorkspaceForm from '@/components/workspaces/CreateWorkspaceForm'
+import { mapState } from 'vuex'
 
 export default {
   components: {
-    flashMessage
+    flashMessage,
+    CreateWorkspaceForm
   },
 
   data () {
     return {
-      workspaces: []
+      isComponentModalActive: false
     }
   },
 
-  created () {
-    apiWorkspaceList()
-      .then(({ data }) => {
-        this.workspaces = data['hydra:member']
-      })
+  computed: mapState({
+    workspaces: state => state.workspaces.workspaces
+  }),
+
+  mounted () {
+    this.getWorkspaces()
+  },
+
+  methods: {
+    getWorkspaces () {
+      this.$store.dispatch('fetchWorkspaces')
+    }
   }
 }
 </script>
