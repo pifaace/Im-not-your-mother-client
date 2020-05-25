@@ -4,7 +4,9 @@
     <h2>Workspace list</h2>
     <ul>
       <li v-for="workspace in workspaces" :key="workspace.id">
-        {{ workspace.name }}
+        <router-link :to="{ name: 'workspaceHome', params: { id: workspace.id } }">
+          {{ workspace.name }}
+        </router-link>
       </li>
     </ul>
     <b-button @click="isComponentModalActive = true">

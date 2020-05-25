@@ -4,7 +4,9 @@ const ConfirmUser = () => import('@/views/auth/ConfirmUser')
 const Login = () => import('@/views/auth/Login')
 const Register = () => import('@/views/auth/Register')
 const WorkspaceInvitation = () => import('@/views/workspaces/WorkspaceInvitation')
+const WorkspaceHome = () => import('@/views/workspaces/WorkspaceHome')
 const WorkspaceList = () => import('@/views/workspaces/WorkspaceList')
+const Workspace = () => import('@/views/workspaces/Workspace')
 
 const router = new VueRouter({
   mode: 'history',
@@ -36,16 +38,28 @@ const router = new VueRouter({
     },
     {
       path: '/workspaces',
-      component: WorkspaceList,
-      name: 'workspaceList',
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/workspaces/:id/invitation',
-      component: WorkspaceInvitation,
-      name: 'workspaceInvitation',
-      meta: { requiresAuth: true },
-      props: true
+      component: Workspace,
+      children: [
+        {
+          path: '',
+          component: WorkspaceList,
+          name: 'workspaceList',
+          meta: { requiresAuth: true }
+        },
+        {
+          path: ':id',
+          component: WorkspaceHome,
+          name: 'workspaceHome',
+          meta: { requiresAuth: true }
+        },
+        {
+          path: ':id/invitation',
+          component: WorkspaceInvitation,
+          name: 'workspaceInvitation',
+          meta: { requiresAuth: true },
+          props: true
+        }
+      ]
     }
   ]
 })
