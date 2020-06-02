@@ -77,17 +77,15 @@ export default {
   },
 
   methods: {
-    onSubmit () {
-      this.form.register()
-        .then(() => {
-          this.submitted = true
-        })
-        .catch(() => {
-          this.submitted = false
-
-          this.form.password = ''
-          this.form.passwordConfirmation = ''
-        })
+    async onSubmit () {
+      try {
+        await this.form.register()
+        this.submitted = true
+      } catch (e) {
+        this.submitted = false
+        this.form.password = ''
+        this.form.passwordConfirmation = ''
+      }
     }
   }
 }

@@ -62,8 +62,13 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      this.form.createWorkspace()
+    async onSubmit () {
+      try {
+        const workspace = (await this.form.createWorkspace()).data
+        this.$emit('workspace-created', workspace)
+      } catch (e) {
+        console.log('erreur')
+      }
     },
 
     transformEmailIntoTag (event) {

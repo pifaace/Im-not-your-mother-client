@@ -4,7 +4,9 @@
     <h2>Workspace list</h2>
     <ul>
       <li v-for="workspace in workspaces" :key="workspace.id">
-        <router-link :to="{ name: 'workspaceHome', params: { id: workspace.id } }">
+        <router-link
+          :to="{ name: 'workspaceHome', params: { id: workspace.id } }"
+        >
           {{ workspace.name }}
         </router-link>
       </li>
@@ -20,7 +22,7 @@
       aria-role="dialog"
       aria-modal
     >
-      <create-workspace-form />
+      <create-workspace-form @workspace-created="addWorkspace" />
     </b-modal>
   </div>
 </template>
@@ -28,7 +30,7 @@
 <script>
 import flashMessage from '@/components/Flash'
 import CreateWorkspaceForm from '@/components/workspaces/CreateWorkspaceForm'
-import { mapState } from 'vuex'
+import { apiWorkspaceList } from '@/logic/workspaces/Workspace.api'
 
 export default {
   components: {
@@ -38,21 +40,18 @@ export default {
 
   data () {
     return {
+      workspaces: {},
       isComponentModalActive: false
     }
   },
 
-  computed: mapState({
-    workspaces: state => state.workspaces.workspaces
-  }),
-
-  mounted () {
-    this.getWorkspaces()
+  async mounted () {
+    this.workspaces = (await apiWorkspaceList()).data
   },
 
   methods: {
-    getWorkspaces () {
-      this.$store.dispatch('fetchWorkspaces')
+    addWorkspace (workspace) {
+      this.workspaces.push(workspace)
     }
   }
 }
