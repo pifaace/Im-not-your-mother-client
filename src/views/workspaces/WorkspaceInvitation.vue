@@ -15,7 +15,6 @@ export default {
     }
   },
   created () {
-    console.log('tesr')
     apiWorkspaceInvitation(this.id)
       .then(() => {
         this.$flash.add('success-invitation', 'You successfully joined the workspace')
