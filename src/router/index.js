@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router'
-import store from '@/store'
-const ConfirmUser = () => import('@/views/auth/ConfirmUser')
+import { getInstance } from '../auth/index'
 const Login = () => import('@/views/auth/Login')
-const Register = () => import('@/views/auth/Register')
 const WorkspaceInvitation = () => import('@/views/workspaces/WorkspaceInvitation')
 const WorkspaceHome = () => import('@/views/workspaces/WorkspaceHome')
 const WorkspaceList = () => import('@/views/workspaces/WorkspaceList')
 const Workspace = () => import('@/views/workspaces/Workspace')
+const Profile = () => import('@/views/auth/Profile')
+const Callback = () => import('@/views/auth/Callback')
 
 const router = new VueRouter({
   mode: 'history',
@@ -18,23 +18,16 @@ const router = new VueRouter({
       meta: { requiresAuth: false }
     },
     {
-      path: '/register',
-      component: Register,
-      name: 'register',
-      meta: { requiresAuth: false }
+      path: '/callback',
+      component: Callback,
+      name: 'callback',
+      meta: { requiresAuth: true }
     },
     {
-      path: '/users/confirm',
-      component: ConfirmUser,
-      name: 'confirmUser',
-      meta: { requiresAuth: false },
-      beforeEnter: (to, from, next) => {
-        if (!Object.prototype.hasOwnProperty.call(to.query, 'token')) {
-          return next('/login')
-        }
-
-        next()
-      }
+      component: Profile,
+      path: '/profile',
+      name: 'profile',
+      meta: { requiresAuth: true }
     },
     {
       path: '/workspaces',
@@ -65,15 +58,32 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.isLoggedIn && to.meta.requiresAuth) {
-    return next('/login')
+  const authService = getInstance()
+
+  const fn = () => {
+    if (authService.isAuthenticated && to.name === 'login') {
+      return next('/workspaces')
+    }
+
+    if (authService.isAuthenticated || !to.meta.requiresAuth) {
+      return next()
+    }
+
+    // Otherwise, log in
+    authService.loginWithRedirect({ appState: { targetUrl: to.fullPath } })
   }
 
-  if (store.getters.isLoggedIn && !to.meta.requiresAuth) {
-    return next('/workspaces')
+  // If loading has already finished, check our auth state using `fn()`
+  if (!authService.loading) {
+    return fn()
   }
 
-  next()
+  // Watch for the loading property to change before we check isAuthenticated
+  authService.$watch('loading', loading => {
+    if (loading === false) {
+      return fn()
+    }
+  })
 })
 
 export default router

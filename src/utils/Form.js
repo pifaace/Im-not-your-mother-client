@@ -1,5 +1,4 @@
 import Errors from '@/utils/Errors'
-import { apiRegister } from '@/logic/auth/Auth.api'
 import { apiWorkspaceCreate } from '@/logic/workspaces/Workspace.api'
 
 export default class {
@@ -46,19 +45,6 @@ export default class {
     }
 
     return data
-  }
-
-  /**
-   * Send a register POST request.
-   */
-  async register () {
-    try {
-      await apiRegister(this.data())
-      this.onSuccess()
-    } catch (error) {
-      this.onFail(error)
-      return Promise.reject(error)
-    }
   }
 
   /**

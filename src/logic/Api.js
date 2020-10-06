@@ -1,6 +1,5 @@
 import axios from 'axios'
-import store from '@/store'
-import router from '@/router'
+import { getInstance } from '../auth/index'
 
 const api = axios.create({
   baseURL: process.env.VUE_APP_IM_NOT_YOUR_MOTHER_API,
@@ -11,22 +10,14 @@ const api = axios.create({
   }
 })
 
-api.interceptors.request.use((request) => {
-  if (window.sessionStorage.getItem('token') !== undefined) {
-    request.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('token')
+api.interceptors.request.use(async (request) => {
+  const authService = getInstance()
+  const token = await authService.getTokenSilently()
+
+  if (authService.isAuthenticated) {
+    request.headers.common.Authorization = 'Bearer ' + token
   }
   return request
 })
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status === 401 && router.currentRoute.name !== 'login') {
-      store.dispatch('logout')
-    }
-
-    return Promise.reject(error)
-  }
-)
 
 export default api

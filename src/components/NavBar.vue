@@ -2,7 +2,8 @@
   <b-navbar>
     <template slot="start">
       <b-navbar-item tag="div">
-        {{ user.username }}
+        <!-- {{ user.username }} -->
+        pseudo
       </b-navbar-item>
     </template>
 
@@ -19,26 +20,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-
 export default {
-  computed: {
-    ...mapGetters([
-      'isLoggedIn'
-    ]),
-    ...mapState({
-      user: state => state.auth.user
-    })
-  },
-  created () {
-    this.$store.dispatch('fetchUser')
-  },
   methods: {
     logout () {
-      this.$store.dispatch('logout')
+      this.$auth.logout({
+        returnTo: window.location.origin
+      })
     }
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
