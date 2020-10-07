@@ -1,0 +1,26 @@
+.sidebar-border {
+  border-right: 1px solid $grey;
+}
+
+.button-add-tool {
+  width: 81px;
+  height: 81px;
+  background-color: $grey;
+  color: $white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+  border-radius: 5px;
+}
+
+.plus {
+  display:inline-block;
+  width:50px;
+  height:44px;
+  
+  background:
+    linear-gradient(#fff,#fff),
+    linear-gradient(#fff,#fff),
+    $grey;
+  background-position:center;
+  background-size: 90% 3px,3px 90%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat:no-repeat;
+}

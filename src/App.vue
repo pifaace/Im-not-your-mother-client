@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <nav-bar v-if="$auth.isAuthenticated" />
+    <navbar v-if="$auth.isAuthenticated" />
     <router-view />
   </div>
 </template>
 <script>
-import NavBar from '@/components/NavBar'
+import Navbar from '@/components/Navbar'
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    Navbar
   }
 }
 </script>
