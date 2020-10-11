@@ -5,3 +5,16 @@
   height: 44px;
   font-weight: bold;
 }
+
+.button-add-workspace {
+  color: $white;
+  background-color: $orange;
+  font-size: 36px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+  }
+}

@@ -7,6 +7,7 @@ import VueRouter from 'vue-router'
 import Flash from './utils/Flash'
 import '@/assets/app.scss'
 import { Auth0Plugin } from './auth'
+import '@mdi/font/scss/materialdesignicons.scss'
 
 Vue.use(Buefy)
 Vue.use(VueRouter)

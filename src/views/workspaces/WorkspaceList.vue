@@ -1,19 +1,20 @@
 <template>
   <div>
     <flash-message flash-key="success-invitation" type="is-success" />
-    <h2>Workspace list</h2>
-    <ul>
-      <li v-for="workspace in workspaces" :key="workspace.id">
+    <ul class="workspace-liste-container">
+      <b-loading v-model="isLoading" :is-full-page="false" :can-cancel="false" />
+      <li v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace-card">
         <router-link
-          :to="{ name: 'workspaceHome', params: { id: workspace.id } }"
+          :to="{ name: 'workspaceHome', params: { id: workspace.id } }" class="workspace-card-link"
         >
           {{ workspace.name }}
         </router-link>
+        <span class="workspace-card-number">{{ index + 1 }}</span>
+      </li>
+      <li v-show="!isLoading" class="workspace-card button-add-workspace" @click="isComponentModalActive = true">
+        New workspace
       </li>
     </ul>
-    <b-button @click="isComponentModalActive = true">
-      New workspace
-    </b-button>
     <b-modal
       :active.sync="isComponentModalActive"
       has-modal-card
@@ -41,12 +42,14 @@ export default {
   data () {
     return {
       workspaces: {},
-      isComponentModalActive: false
+      isComponentModalActive: false,
+      isLoading: true
     }
   },
 
   async mounted () {
     this.workspaces = (await apiWorkspaceList()).data
+    this.isLoading = false
   },
 
   methods: {

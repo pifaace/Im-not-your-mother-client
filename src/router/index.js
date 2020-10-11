@@ -43,7 +43,8 @@ const router = new VueRouter({
           path: ':id',
           component: WorkspaceHome,
           name: 'workspaceHome',
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true },
+          props: true
         },
         {
           path: ':id/invitation',

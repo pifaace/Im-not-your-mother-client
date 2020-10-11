@@ -116,11 +116,21 @@ export default {
     CreateShoppingListForm,
     Sidebar
   },
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
 
   data () {
     return {
       isComponentModalActive: false
     }
+  },
+
+  created () {
+    this.$store.dispatch('setCurrentWorkspace', this.id)
   }
 }
 </script>

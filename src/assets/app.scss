@@ -4,9 +4,14 @@
 // Import overwride variables
 @import "variables";
 
-// Import Bulma
+// Import Bulma and Buefy
 @import "~bulma/bulma";
+@import '~buefy/src/scss/buefy';
 
+// components
 @import "components/button";
 @import "components/title";
 @import "components/sidebar";
+
+// layouts
+@import "layouts/workspaces_list";
