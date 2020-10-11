@@ -2,8 +2,8 @@
   <div>
     <b-sidebar
       position="static"
-      mobile="hide"
       type="is-light"
+      :fullheight="true"
       open
     >
       <b-button class="button-add-tool">

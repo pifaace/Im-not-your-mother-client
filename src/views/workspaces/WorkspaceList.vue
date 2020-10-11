@@ -2,7 +2,6 @@
   <div>
     <flash-message flash-key="success-invitation" type="is-success" />
     <ul class="workspace-liste-container">
-      <b-loading v-model="isLoading" :is-full-page="false" :can-cancel="false" />
       <li v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace-card">
         <router-link
           :to="{ name: 'workspaceHome', params: { id: workspace.id } }" class="workspace-card-link"
@@ -32,6 +31,7 @@
 import flashMessage from '@/components/Flash'
 import CreateWorkspaceForm from '@/components/workspaces/CreateWorkspaceForm'
 import { apiWorkspaceList } from '@/logic/workspaces/Workspace.api'
+import NProgress from 'nprogress'
 
 export default {
   components: {
@@ -48,7 +48,9 @@ export default {
   },
 
   async mounted () {
+    NProgress.start()
     this.workspaces = (await apiWorkspaceList()).data
+    NProgress.done()
     this.isLoading = false
   },
 

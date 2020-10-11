@@ -127,10 +127,6 @@ export default {
     return {
       isComponentModalActive: false
     }
-  },
-
-  created () {
-    this.$store.dispatch('setCurrentWorkspace', this.id)
   }
 }
 </script>

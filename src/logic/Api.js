@@ -3,7 +3,7 @@ import { getInstance } from '../auth/index'
 
 const api = axios.create({
   baseURL: process.env.VUE_APP_IM_NOT_YOUR_MOTHER_API,
-  timeout: 5000,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json'

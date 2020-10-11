@@ -11,7 +11,7 @@ export default {
   },
   actions: {
     setCurrentWorkspace ({ commit }, data) {
-      apiCurrentWorkspace(data)
+      return apiCurrentWorkspace(data)
         .then(() => {
           commit('SET_CURRENT_WORKSPACE', data)
         })
