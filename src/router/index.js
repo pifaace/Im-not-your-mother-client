@@ -9,8 +9,7 @@ const WorkspaceList = () => import('@/views/workspaces/WorkspaceList')
 const Workspace = () => import('@/views/workspaces/Workspace')
 const Profile = () => import('@/views/auth/Profile')
 const Callback = () => import('@/views/auth/Callback')
-const NotFound = () => import('@/views/errors/NotFound')
-const NetworkIssue = () => import('@/views/errors/NetworkIssue')
+const NotFound = () => import('@/components/errors/NotFound')
 
 const router = new VueRouter({
   mode: 'history',
@@ -50,17 +49,10 @@ const router = new VueRouter({
           meta: { requiresAuth: true },
           props: true,
           beforeEnter (routeTo, routeFrom, next) {
-            NProgress.start()
             store.dispatch('setCurrentWorkspace', routeTo.params.id)
               .then(() => {
+                NProgress.done()
                 next()
-              })
-              .catch(error => {
-                if (error.response && (error.response.status === 404 || error.response.status === 401)) {
-                  next({ name: 'not-found', params: { resource: 'workspace' } })
-                } else {
-                  next({ name: 'network-issue' })
-                }
               })
           }
         },
@@ -74,24 +66,15 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/not-found',
-      name: 'not-found',
-      component: NotFound,
-      props: true
-    },
-    {
-      path: '/network-issue',
-      name: 'network-issue',
-      component: NetworkIssue
-    },
-    {
       path: '*',
-      redirect: { name: 'not-found', params: { resource: 'page' } }
+      component: NotFound
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
+  NProgress.start()
+
   const authService = getInstance()
 
   const fn = () => {
@@ -118,10 +101,6 @@ router.beforeEach((to, from, next) => {
       return fn()
     }
   })
-})
-
-router.afterEach(() => {
-  NProgress.done()
 })
 
 export default router

@@ -17,7 +17,6 @@
     <b-modal
       :active.sync="isComponentModalActive"
       has-modal-card
-      trap-focus
       :destroy-on-hide="false"
       aria-role="dialog"
       aria-modal
@@ -48,7 +47,7 @@ export default {
   },
 
   async mounted () {
-    NProgress.start()
+    // NProgress.start()
     this.workspaces = (await apiWorkspaceList()).data
     NProgress.done()
     this.isLoading = false
