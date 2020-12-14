@@ -3,15 +3,20 @@
     <form @submit.prevent="onSubmit">
       <div class="modal-card" style="width: auto">
         <header class="modal-card-head">
-          <h1 class="modal-card-title">
-            New workspace
-          </h1>
+          <span class="title strong is-3">
+            Create a group
+          </span>
+          <button
+            type="button"
+            class="delete"
+            @click="$parent.close()"
+          />
         </header>
         <section class="modal-card-body">
           <div class="field">
             <label class="label">Group name</label>
             <div class="control">
-              <input v-model="form.name" name="name" class="input" type="text" placeholder="Enter your group name" required>
+              <input v-model="form.name" name="name" class="input" type="text" placeholder="Enter your group name">
               <span v-if="form.errors.has('name')" class="help is-danger" v-text="form.errors.get('name')" />
             </div>
           </div>
@@ -35,10 +40,7 @@
           <span v-if="form.errors.has('numberOfWorkspaces')" class="help is-danger" v-text="form.errors.get('numberOfWorkspaces')" />
         </section>
         <footer class="modal-card-foot">
-          <button class="button" type="button" @click="$parent.close()">
-            Close
-          </button>
-          <button class="button is-primary">
+          <button class="button larger">
             Create
           </button>
         </footer>
@@ -49,6 +51,7 @@
 
 <script>
 import Form from '@/utils/Form'
+import { apiWorkspaceCreate } from '@/logic/workspaces/Workspace.api'
 
 export default {
   data () {
@@ -64,10 +67,10 @@ export default {
   methods: {
     async onSubmit () {
       try {
-        const workspace = (await this.form.createWorkspace()).data
+        const workspace = (await apiWorkspaceCreate(this.form.data())).data
         this.$emit('workspace-created', workspace)
-      } catch (e) {
-        console.log('erreur')
+      } catch (error) {
+        this.form.onFail(error)
       }
     },
 

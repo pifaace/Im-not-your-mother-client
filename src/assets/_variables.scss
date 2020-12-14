@@ -19,6 +19,19 @@ $title-color: $primary;
 // link
 $link: $primary;
 
-//sidebar
+// sidebar
 $sidebar-width: auto;
 
+// modal
+$modal-background-background-color: rgba(0,0,0,0.5);
+$modal-card-head-background-color	: $white;
+$modal-card-foot-border-top: none;
+$modal-card-head-border-bottom: none;
+// $modal-content-width: 1280px;
+$modal-close-dimensions: 80px;
+
+//input
+$input-shadow: none;
+$input-radius: 0;
+$input-focus-box-shadow-color: $white;
+$input-focus-box-shadow-size: 0;

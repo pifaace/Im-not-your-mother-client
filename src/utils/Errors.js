@@ -35,8 +35,8 @@ export default class {
     this.errors = {}
 
     errors.forEach(error => {
-      this.errors[error.propertyPath] = []
-      this.errors[error.propertyPath].push(error.message)
+      this.errors[error.property_path] = []
+      this.errors[error.property_path].push(error.message)
     })
   }
 

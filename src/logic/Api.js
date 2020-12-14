@@ -29,6 +29,10 @@ api.interceptors.response.use(
       return e
     }
 
+    if (e.response.status === 400) {
+      throw e
+    }
+
     if (e.response.status === 404) {
       store.dispatch('setErrorStatus', 404)
     }

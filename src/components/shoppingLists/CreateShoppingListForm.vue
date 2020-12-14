@@ -1,53 +1,60 @@
 <template>
   <div>
-    pouet
+    <form @submit.prevent="onSubmit">
+      <div class="modal-card" style="width: auto">
+        <header class="modal-card-head">
+          <span class="title strong is-3">
+            Create shopping list
+          </span>
+          <button
+            type="button"
+            class="delete"
+            @click="$parent.close()"
+          />
+        </header>
+        <section class="modal-card-body">
+          <div class="field">
+            <label class="label">Shopping list name</label>
+            <div class="control">
+              <input v-model="form.name" name="name" class="i
+              nput" type="text" placeholder="Enter your shopping list name"
+              >
+              <span v-if="form.errors.has('name')" class="help is-danger" v-text="form.errors.get('name')" />
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button larger">
+            Create
+          </button>
+        </footer>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
-// import Form from '@/utils/Form'
+import Form from '@/utils/Form'
+import { apiCreateShoppingList } from '@/logic/shoppingList/ShoppingList.api'
+import { bus } from '@/main'
 
 export default {
-  // data () {
-  //   return {
-  //     form: new Form({
-  //       name: '',
-  //       emails: []
-  //     }),
-  //     email: '',
-  //     tags: []
-  //   }
-  // },
-  // methods: {
-  //   async onSubmit () {
-  //     try {
-  //       const workspace = (await this.form.createWorkspace()).data
-  //       this.$emit('workspace-created', workspace)
-  //     } catch (e) {
-  //       console.log('erreur')
-  //     }
-  //   },
-
-  //   transformEmailIntoTag (event) {
-  //     if (event.key === ',' && this.emailFormat()) {
-  //       this.tags.push(this.email)
-  //       this.form.emails.push(this.email)
-  //       this.email = ''
-  //       event.preventDefault()
-  //     }
-  //   },
-
-  //   emailFormat () {
-  //     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  //     return regex.test(this.email)
-  //   },
-
-  //   removeEmail (emailToRemove) {
-  //     this.form.emails = this.form.emails.filter(email => email !== emailToRemove)
-  //     this.tags = this.tags.filter(tag => tag !== emailToRemove)
-  //   }
-  // }
+  data () {
+    return {
+      form: new Form({
+        name: ''
+      })
+    }
+  },
+  methods: {
+    async onSubmit () {
+      try {
+        const shoppinghList = (await apiCreateShoppingList(this.form.data())).data
+        bus.$emit('tool-created', shoppinghList)
+      } catch (error) {
+        this.form.onFail(error)
+      }
+    }
+  }
 }
 </script>
-
-<style lang="scss" scoped></style>

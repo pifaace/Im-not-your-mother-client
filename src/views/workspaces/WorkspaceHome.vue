@@ -30,30 +30,22 @@
           <div class="column is-one-quarter">
             <b-button
               class="button-primary"
-              @click="isComponentModalActive = true"
+              @click="isModalCreateShoppingListActive = true"
             >
               Shopping list
             </b-button>
-            <b-modal
-              :active.sync="isComponentModalActive"
-              has-modal-card
-              trap-focus
-              :destroy-on-hide="false"
-              aria-role="dialog"
-              aria-modal
-            >
+            <modal v-model="isModalCreateShoppingListActive">
               <create-shopping-list-form />
-            </b-modal>
+            </modal>
           </div>
           <div class="column is-one-quarter">
             <b-button
               class="button-primary"
-              @click="isComponentModalActive = true"
             >
               Shopping list
             </b-button>
-            <b-modal
-              :active.sync="isComponentModalActive"
+            <!-- <b-modal
+              :active.sync="isModalCreateShoppingListActive"
               has-modal-card
               trap-focus
               :destroy-on-hide="false"
@@ -61,19 +53,18 @@
               aria-modal
             >
               <create-shopping-list-form />
-            </b-modal>
+            </b-modal> -->
           </div>
         </div>
         <div class="columns is-mobile is-centered">
           <div class="column is-one-quarter">
             <b-button
               class="button-primary"
-              @click="isComponentModalActive = true"
             >
               Shopping list
             </b-button>
-            <b-modal
-              :active.sync="isComponentModalActive"
+            <!-- <b-modal
+              :active.sync="isModalCreateShoppingListActive"
               has-modal-card
               trap-focus
               :destroy-on-hide="false"
@@ -81,17 +72,16 @@
               aria-modal
             >
               <create-shopping-list-form />
-            </b-modal>
+            </b-modal> -->
           </div>
           <div class="column is-one-quarter">
             <b-button
               class="button-primary"
-              @click="isComponentModalActive = true"
             >
               Shopping list
             </b-button>
-            <b-modal
-              :active.sync="isComponentModalActive"
+            <!-- <b-modal
+              :active.sync="isModalCreateShoppingListActive"
               has-modal-card
               trap-focus
               :destroy-on-hide="false"
@@ -99,7 +89,7 @@
               aria-modal
             >
               <create-shopping-list-form />
-            </b-modal>
+            </b-modal> -->
           </div>
         </div>
       </div>
@@ -110,11 +100,13 @@
 <script>
 import CreateShoppingListForm from '@/components/shoppingLists/CreateShoppingListForm'
 import Sidebar from '@/components/Sidebar'
+import Modal from '@/components/Modal'
 
 export default {
   components: {
     CreateShoppingListForm,
-    Sidebar
+    Sidebar,
+    Modal
   },
   props: {
     id: {
@@ -125,7 +117,7 @@ export default {
 
   data () {
     return {
-      isComponentModalActive: false
+      isModalCreateShoppingListActive: false
     }
   }
 }

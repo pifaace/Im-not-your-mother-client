@@ -19,6 +19,7 @@
       has-modal-card
       :destroy-on-hide="false"
       aria-role="dialog"
+      :can-cancel="['x']"
       aria-modal
     >
       <create-workspace-form @workspace-created="addWorkspace" />
@@ -40,14 +41,13 @@ export default {
 
   data () {
     return {
-      workspaces: {},
+      workspaces: [],
       isComponentModalActive: false,
       isLoading: true
     }
   },
 
   async mounted () {
-    // NProgress.start()
     this.workspaces = (await apiWorkspaceList()).data
     NProgress.done()
     this.isLoading = false
